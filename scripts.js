@@ -11,13 +11,17 @@ const botonEnviar = document.getElementById("idEnviar");
 function validarNombre() {
     if (nombre.value.length <= 1) {
         mensajeNombre.innerHTML = "Por favor, ingrese un nombre válido";
-    } 
+    } else {
+        mensajeNombre.innerHTML = " ";
+    }
     };
 
 function validarApellido() {
   if (apellido.value.length <=1) {
         mensajeApellido.innerHTML = "Por favor, ingrese un apellido válido";
-    }  
+    }  else {
+        mensajeApellido.innerHTML = " ";
+    }
 };
 
 botonEnviar.addEventListener("click", validarNombre);
@@ -52,7 +56,7 @@ button.addEventListener("click", function() {
 });
 
 
-//VALIDACIONES FORMULARIO DE COMPRA (nombre, apellido e email)
+//VALIDACIONES FORMULARIO DE COMPRA (nombre, apellido, email, cantidad)
 
 const btnResumen = document.getElementById("btnResumen");
 
@@ -61,6 +65,8 @@ const nombre2 = document.getElementById("inputNombre");
 const apellido2 = document.getElementById("inputApellido");
 
 var formatoMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+const qTickets = document.getElementById("inputCantidad"); 
 
 function validacionNombre() {
     
@@ -87,9 +93,17 @@ function validarEmail() {
         }
 };
 
+function validacion_Q_Tickets() {
+    
+    if (qTickets.value >10) {
+        alertaTickets.innerHTML= "Transacción no procesada. Máximo de 10 tickets por persona";
+    }
+};
+
 btnResumen.addEventListener("click", validacionNombre);
 btnResumen.addEventListener("click", validacionApellido);
 btnResumen.addEventListener("click", validarEmail);
+btnResumen.addEventListener("click", validacion_Q_Tickets);
 
 // FUNCION DETALLAR COMPRA (indica el precio a pagar por la venta de entradas 
 //teniendo en cuenta los descuentos vigentes)
@@ -108,6 +122,9 @@ const multiplicacion = cantidadTickets * valorTicket;
         totalCompra.innerHTML = "Total a Pagar: $ " + multiplicacion;
     } else {
         switch (categoriaSeleccionada) {
+        
+         case "0": alertaCategoria.innerHTML = "Seleccione una categoría"
+
          case "2":
         
                  totalCompra.innerHTML = "Total a Pagar: $ " + ((multiplicacion*20)/100)
@@ -137,6 +154,8 @@ function borrar() {
     totalCompra.innerHTML = "Total a Pagar: $"
     alertaNombre.innerHTML= ""
     idEmail.innerHTML = ""
+    alertaTickets.innerHTML = ""
+    alertaCategoria.innerHTML = ""
 }
 
 btnBorrar.addEventListener("click", borrar);
